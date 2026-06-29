@@ -46,9 +46,10 @@ and fresh replay refresh completed. Current authoritative checkpoint:
   `FRESH-RR-SQNT07A-SPATIAL-MOVEMENT` are complete.
 - Accepted fresh SQNT-07A coverage is generic-substrate coverage only:
   condition lifecycle plus marked damage/immunity active effects, and
-  spatial-effect plus movement/presentation routes.
+  spatial-effect plus movement/presentation routes; the selected condition-save
+  refresh now accepts 5 additional selected rows through copied generic route
+  facts and carries forward the existing 4 selected rows.
 - Remaining SQNT-07A blockers are exact and should drive future work:
-  `SQNT-07A-condition-selected-identity-adapter-not-refreshed`,
   `SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts`,
   `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`,
   and `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.

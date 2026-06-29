@@ -4519,13 +4519,13 @@ Verification results:
 
 Accepted rows:
 
-- 18 copied condition-rider connector actions replay through public reducer route events, including Paralyzed with implied Incapacitated and laughter-style Incapacitated plus Prone with blocked self-ending fact.
-- 9 copied marked-damage/immunity connector actions replay through public reducer route events for marked attack-roll damage, target-drop transfer timing, condition-immunity rejection, turn-start Temporary Hit Points, and Concentration cleanup.
-- 4 selected level-one buff/mark rows now count through the copied generic marked/immunity connector route facts: Heroism admission/grant, Heroism cleanup, Hunter's Mark same-turn transfer, and Hex later-turn transfer.
+- 5 newly accepted selected condition-saving rows replay through copied generic route facts: Blindness/Deafness Blinded, Blindness/Deafness Deafened, Hold Person failed save, Hold Person repeat-save success, and Hypnotic Pattern failed save.
+- 4 existing selected condition-saving rows are carried forward but not recounted as new: Color Spray failed save, Entangle failed save, Hideous Laughter repeat-save success, and Sleep repeat-save failure.
+- Hypnotic Pattern is accepted only as `SaveGatedSpellRouteSubject` catalog/save-gated frontier evidence. This report does not claim Charmed, Incapacitated, Speed-0, or lifecycle support for that row.
 
 Blocked rows:
 
-- Selected condition-saving-throw identity rows are not counted by this dirty lane. The generic condition-rider connector is accepted, but the selected condition-saving adapter was not refreshed to replay selected rows through those generic facts.
+- 8 selected level-one rows remain outside this adapter refresh because they require generic route facts outside the selected condition-saving driver.
 
 RAW/domain check:
 

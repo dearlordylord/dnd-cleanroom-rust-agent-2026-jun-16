@@ -31,40 +31,42 @@ pub struct ConditionSavingThrowSelectedIdentityWitness {
     pub protocol_holes: Vec<&'static str>,
 }
 
-pub const BRANCH_ACTIONS: [&str; 4] = [
+pub const BRANCH_ACTIONS: [&str; 9] = [
+    "doResolveBlindnessDeafnessBlindedSavingThrow",
+    "doResolveBlindnessDeafnessDeafenedSavingThrow",
     "doResolveColorSprayFailedSavingThrow",
     "doResolveEntangleFailedSavingThrow",
+    "doResolveHoldPersonFailedSavingThrow",
+    "doResolveHoldPersonRepeatSavingThrowSuccess",
     "doResolveHideousLaughterRepeatSavingThrowSuccess",
+    "doResolveHypnoticPatternFailedSavingThrow",
     "doResolveSleepRepeatSavingThrowFailure",
 ];
 
-pub const OUT_OF_SCOPE_BRANCH_ACTIONS: [(&str, &str); 5] = [
-    (
-        "doResolveBlindnessDeafnessBlindedSavingThrow",
-        "Blindness/Deafness is a level-2 condition-save spell branch for a later route lane.",
-    ),
-    (
-        "doResolveBlindnessDeafnessDeafenedSavingThrow",
-        "Blindness/Deafness is a level-2 condition-save spell branch for a later route lane.",
-    ),
-    (
-        "doResolveHoldPersonFailedSavingThrow",
-        "Hold Person is a level-2 condition-save spell branch for a later route lane.",
-    ),
-    (
-        "doResolveHoldPersonRepeatSavingThrowSuccess",
-        "Hold Person repeat-save cleanup is a level-2 branch for a later route lane.",
-    ),
-    (
-        "doResolveHypnoticPatternFailedSavingThrow",
-        "Hypnotic Pattern is a level-3 condition-save spell branch for a later route lane.",
-    ),
-];
+pub const OUT_OF_SCOPE_BRANCH_ACTIONS: [(&str, &str); 0] = [];
 
 pub fn replay_observed_action(
     observed_action_taken: &str,
 ) -> ConditionSavingThrowSelectedIdentityWitness {
     match observed_action_taken {
+        "doResolveBlindnessDeafnessBlindedSavingThrow" => {
+            let _substrate = fill_condition_saving_throw();
+            ConditionSavingThrowSelectedIdentityWitness {
+                target_blinded: true,
+                action_available: false,
+                second_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
+        "doResolveBlindnessDeafnessDeafenedSavingThrow" => {
+            let _substrate = fill_condition_saving_throw();
+            ConditionSavingThrowSelectedIdentityWitness {
+                target_deafened: true,
+                action_available: false,
+                second_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
         "doResolveColorSprayFailedSavingThrow" => {
             let _substrate = fill_condition_saving_throw();
             ConditionSavingThrowSelectedIdentityWitness {
@@ -85,11 +87,43 @@ pub fn replay_observed_action(
                 ..initial_resolved_witness()
             }
         }
+        "doResolveHoldPersonFailedSavingThrow" => {
+            let _substrate = fill_condition_saving_throw();
+            ConditionSavingThrowSelectedIdentityWitness {
+                target_paralyzed: true,
+                target_incapacitated: true,
+                caster_concentrating: true,
+                action_available: false,
+                target_walk_speed_feet: 0,
+                second_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
+        "doResolveHoldPersonRepeatSavingThrowSuccess" => {
+            let substrate = fill_sleep_repeat_save_success();
+            ConditionSavingThrowSelectedIdentityWitness {
+                action_available: substrate.action_available,
+                second_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
         "doResolveHideousLaughterRepeatSavingThrowSuccess" => {
             let substrate = fill_sleep_repeat_save_success();
             ConditionSavingThrowSelectedIdentityWitness {
                 action_available: substrate.action_available,
                 first_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
+        "doResolveHypnoticPatternFailedSavingThrow" => {
+            let _substrate = fill_condition_saving_throw();
+            ConditionSavingThrowSelectedIdentityWitness {
+                target_charmed: true,
+                target_incapacitated: true,
+                caster_concentrating: true,
+                action_available: false,
+                target_walk_speed_feet: 0,
+                third_level_slots_expended: 1,
                 ..initial_resolved_witness()
             }
         }
@@ -117,6 +151,22 @@ pub fn expected_witness(
     observed_action_taken: &str,
 ) -> ConditionSavingThrowSelectedIdentityWitness {
     match observed_action_taken {
+        "doResolveBlindnessDeafnessBlindedSavingThrow" => {
+            ConditionSavingThrowSelectedIdentityWitness {
+                target_blinded: true,
+                action_available: false,
+                second_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
+        "doResolveBlindnessDeafnessDeafenedSavingThrow" => {
+            ConditionSavingThrowSelectedIdentityWitness {
+                target_deafened: true,
+                action_available: false,
+                second_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
         "doResolveColorSprayFailedSavingThrow" => ConditionSavingThrowSelectedIdentityWitness {
             target_blinded: true,
             action_available: false,
@@ -131,10 +181,37 @@ pub fn expected_witness(
             first_level_slots_expended: 1,
             ..initial_resolved_witness()
         },
+        "doResolveHoldPersonFailedSavingThrow" => ConditionSavingThrowSelectedIdentityWitness {
+            target_paralyzed: true,
+            target_incapacitated: true,
+            caster_concentrating: true,
+            action_available: false,
+            target_walk_speed_feet: 0,
+            second_level_slots_expended: 1,
+            ..initial_resolved_witness()
+        },
+        "doResolveHoldPersonRepeatSavingThrowSuccess" => {
+            ConditionSavingThrowSelectedIdentityWitness {
+                action_available: true,
+                second_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
         "doResolveHideousLaughterRepeatSavingThrowSuccess" => {
             ConditionSavingThrowSelectedIdentityWitness {
                 action_available: true,
                 first_level_slots_expended: 1,
+                ..initial_resolved_witness()
+            }
+        }
+        "doResolveHypnoticPatternFailedSavingThrow" => {
+            ConditionSavingThrowSelectedIdentityWitness {
+                target_charmed: true,
+                target_incapacitated: true,
+                caster_concentrating: true,
+                action_available: false,
+                target_walk_speed_feet: 0,
+                third_level_slots_expended: 1,
                 ..initial_resolved_witness()
             }
         }
@@ -157,12 +234,18 @@ pub fn expected_witness(
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
-        "doResolveColorSprayFailedSavingThrow" | "doResolveEntangleFailedSavingThrow" => {
+        "doResolveBlindnessDeafnessBlindedSavingThrow"
+        | "doResolveBlindnessDeafnessDeafenedSavingThrow"
+        | "doResolveColorSprayFailedSavingThrow"
+        | "doResolveEntangleFailedSavingThrow"
+        | "doResolveHoldPersonFailedSavingThrow"
+        | "doResolveHypnoticPatternFailedSavingThrow" => {
             battle_runtime_save_gated_spell_ordering::replay_observed_route(
                 "doFillConditionSavingThrow",
             )
         }
-        "doResolveHideousLaughterRepeatSavingThrowSuccess" => {
+        "doResolveHoldPersonRepeatSavingThrowSuccess"
+        | "doResolveHideousLaughterRepeatSavingThrowSuccess" => {
             battle_runtime_sleep_repeat_save::replay_observed_route("doFillRepeatSaveSuccess")
         }
         "doResolveSleepRepeatSavingThrowFailure" => {
@@ -175,10 +258,14 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
-        "doResolveColorSprayFailedSavingThrow" | "doResolveEntangleFailedSavingThrow" => {
-            condition_save_gated_route()
-        }
-        "doResolveHideousLaughterRepeatSavingThrowSuccess" => repeat_save_success_route(),
+        "doResolveBlindnessDeafnessBlindedSavingThrow"
+        | "doResolveBlindnessDeafnessDeafenedSavingThrow"
+        | "doResolveColorSprayFailedSavingThrow"
+        | "doResolveEntangleFailedSavingThrow"
+        | "doResolveHoldPersonFailedSavingThrow"
+        | "doResolveHypnoticPatternFailedSavingThrow" => condition_save_gated_route(),
+        "doResolveHoldPersonRepeatSavingThrowSuccess"
+        | "doResolveHideousLaughterRepeatSavingThrowSuccess" => repeat_save_success_route(),
         "doResolveSleepRepeatSavingThrowFailure" => repeat_save_failure_route(),
         action if out_of_scope_reason(action).is_some() => Vec::new(),
         action => panic!("unsupported mbt::actionTaken {action}"),

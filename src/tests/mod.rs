@@ -6368,8 +6368,8 @@ fn condition_saving_throw_selected_identity_routes_in_scope_substrate_branches()
     // battle-runtime-save-gated-spell-ordering.route.mbt.qnt, and
     // battle-runtime-sleep-repeat-save.route.mbt.qnt. RAW:
     // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
-    // "Saving Throws"; selected level-2/3 branches are recorded out of scope
-    // for this lane.
+    // "Saving Throws"; selected level-2/3 branches are accepted through copied
+    // generic route facts, not authored spell identity.
     for action in CONDITION_SAVING_THROW_BRANCH_ACTIONS {
         let observed = replay_condition_saving_throw_action(action);
         assert_eq!(observed, expected_condition_saving_throw_witness(action));

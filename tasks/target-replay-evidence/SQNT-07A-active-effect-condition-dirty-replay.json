@@ -23,6 +23,18 @@
     {
       "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-route-facts.qnt",
       "sha256": "c75e5985025ad5811647ef383709435ff99311009d8fa5674fc1b2205c9aad71"
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+      "sha256": "53158acbee365d467cab341ed75609aab7fc2d3092f8d5904a717298e21b25e3"
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.qnt",
+      "sha256": "92880c640cb1dc300c97ea15b444dedcc2b7ae3ab85834268af0b172ac0b64c3"
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
+      "sha256": "c124d6c23ba30449dcceb346d88f57a321ccf9c953db6af627285b60861d95d2"
     }
   ],
   "acceptedConnectorRows": {
@@ -61,309 +73,312 @@
   },
   "runs": [
     {
-      "branchAction": "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
+      "branchAction": "doResolveBlindnessDeafnessBlindedSavingThrow",
       "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
       "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveBlindnessDeafnessBlindedSavingThrow",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
       "result": {
         "tag": "pass"
       },
-      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+      "routeConnectorAction": "doFillConditionSavingThrow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+      "routeConnectorSha256": "53158acbee365d467cab341ed75609aab7fc2d3092f8d5904a717298e21b25e3",
+      "routeEvidenceBasis": "selected Blinded save row accepted through the copied generic SaveGatedSpellRouteSubject condition-saving-throw route; no authored spell identity dispatch is used in runtime behavior",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleState.save_gated_spell_procedure",
+          "ReducerRouteEvent.qRoute",
+          "SaveGatedSpellRouteSubject",
+          "ConditionChoiceHoleKind",
+          "SpellTargetListHoleKind",
+          "SavingThrowOutcomeHoleKind"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "observedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveBlindnessDeafnessBlindedSavingThrow"
+    },
+    {
+      "branchAction": "doResolveBlindnessDeafnessDeafenedSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveBlindnessDeafnessDeafenedSavingThrow",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doFillConditionSavingThrow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+      "routeConnectorSha256": "53158acbee365d467cab341ed75609aab7fc2d3092f8d5904a717298e21b25e3",
+      "routeEvidenceBasis": "selected Deafened save row accepted through the copied generic SaveGatedSpellRouteSubject condition-saving-throw route; no authored spell identity dispatch is used in runtime behavior",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleState.save_gated_spell_procedure",
+          "ReducerRouteEvent.qRoute",
+          "SaveGatedSpellRouteSubject",
+          "ConditionChoiceHoleKind",
+          "SpellTargetListHoleKind",
+          "SavingThrowOutcomeHoleKind"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "observedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveBlindnessDeafnessDeafenedSavingThrow"
+    },
+    {
+      "branchAction": "doResolveColorSprayFailedSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveColorSprayFailedSavingThrow",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doFillConditionSavingThrow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+      "routeConnectorSha256": "53158acbee365d467cab341ed75609aab7fc2d3092f8d5904a717298e21b25e3",
+      "routeEvidenceBasis": "carried-forward selected Blinded save row remains accepted through the copied generic SaveGatedSpellRouteSubject condition-saving-throw route",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleState.save_gated_spell_procedure",
+          "ReducerRouteEvent.qRoute",
+          "SaveGatedSpellRouteSubject",
+          "ConditionChoiceHoleKind",
+          "SpellTargetListHoleKind",
+          "SavingThrowOutcomeHoleKind"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "observedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveColorSprayFailedSavingThrow"
+    },
+    {
+      "branchAction": "doResolveEntangleFailedSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveEntangleFailedSavingThrow",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doFillConditionSavingThrow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+      "routeConnectorSha256": "53158acbee365d467cab341ed75609aab7fc2d3092f8d5904a717298e21b25e3",
+      "routeEvidenceBasis": "carried-forward selected Restrained save row remains accepted through the copied generic SaveGatedSpellRouteSubject condition-saving-throw route",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleState.save_gated_spell_procedure",
+          "ReducerRouteEvent.qRoute",
+          "SaveGatedSpellRouteSubject",
+          "ConditionChoiceHoleKind",
+          "SpellTargetListHoleKind",
+          "SavingThrowOutcomeHoleKind"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "observedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveEntangleFailedSavingThrow"
+    },
+    {
+      "branchAction": "doResolveHoldPersonFailedSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveHoldPersonFailedSavingThrow",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doFillConditionSavingThrow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+      "routeConnectorSha256": "53158acbee365d467cab341ed75609aab7fc2d3092f8d5904a717298e21b25e3",
+      "routeEvidenceBasis": "selected Paralyzed/Incapacitated save row accepted only through the copied generic SaveGatedSpellRouteSubject condition-saving-throw route; lifecycle support is not claimed by this row",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleState.save_gated_spell_procedure",
+          "ReducerRouteEvent.qRoute",
+          "SaveGatedSpellRouteSubject",
+          "ConditionChoiceHoleKind",
+          "SpellTargetListHoleKind",
+          "SavingThrowOutcomeHoleKind"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "observedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHoldPersonFailedSavingThrow"
+    },
+    {
+      "branchAction": "doResolveHoldPersonRepeatSavingThrowSuccess",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveHoldPersonRepeatSavingThrowSuccess",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doFillRepeatSaveSuccess",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
+      "routeConnectorSha256": "c124d6c23ba30449dcceb346d88f57a321ccf9c953db6af627285b60861d95d2",
+      "routeEvidenceBasis": "selected repeat-save success row accepted through the copied generic RepeatSaveConditionEffectRouteSubject success-cleanup route; authored spell identity is not used in runtime behavior",
+      "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute",
-          "BattleSubjectKind::ConditionImmunityTemporaryHitPoint*"
+          "RepeatSaveConditionEffectRouteSubject",
+          "SavingThrowOutcomeHoleKind",
+          "BattleConditionLifecycleOwner",
+          "BattleActiveEffectOwner"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "d74f02a171d6a1f62a1f1cd396dc952833327aa38c4428e4151238dbb034009a",
-        "observedProjectionSha256": "d74f02a171d6a1f62a1f1cd396dc952833327aa38c4428e4151238dbb034009a",
+        "expectedProjectionSha256": "60a1e10dc9b5b64f39e81c44f2c847b10326b1741af3903e91ca5cc8b40fc40a",
+        "observedProjectionSha256": "60a1e10dc9b5b64f39e81c44f2c847b10326b1741af3903e91ca5cc8b40fc40a",
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints"
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHoldPersonRepeatSavingThrowSuccess"
     },
     {
-      "branchAction": "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
+      "branchAction": "doResolveHideousLaughterRepeatSavingThrowSuccess",
       "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
       "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveHideousLaughterRepeatSavingThrowSuccess",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
       "result": {
         "tag": "pass"
       },
-      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+      "routeConnectorAction": "doFillRepeatSaveSuccess",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
+      "routeConnectorSha256": "c124d6c23ba30449dcceb346d88f57a321ccf9c953db6af627285b60861d95d2",
+      "routeEvidenceBasis": "carried-forward selected repeat-save success row remains accepted through the copied generic RepeatSaveConditionEffectRouteSubject success-cleanup route",
+      "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute",
-          "BattleSubjectKind::ConditionImmunityTemporaryHitPoint*"
+          "RepeatSaveConditionEffectRouteSubject",
+          "SavingThrowOutcomeHoleKind",
+          "BattleConditionLifecycleOwner",
+          "BattleActiveEffectOwner"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "8f46cd6766fe84c45fd100b17ee2b57cc2a79da49a95d186ec406d69984604fa",
-        "observedProjectionSha256": "8f46cd6766fe84c45fd100b17ee2b57cc2a79da49a95d186ec406d69984604fa",
+        "expectedProjectionSha256": "60a1e10dc9b5b64f39e81c44f2c847b10326b1741af3903e91ca5cc8b40fc40a",
+        "observedProjectionSha256": "60a1e10dc9b5b64f39e81c44f2c847b10326b1741af3903e91ca5cc8b40fc40a",
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup"
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHideousLaughterRepeatSavingThrowSuccess"
     },
     {
-      "branchAction": "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
+      "branchAction": "doResolveHypnoticPatternFailedSavingThrow",
       "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
       "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveHypnoticPatternFailedSavingThrow",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
       "result": {
         "tag": "pass"
       },
-      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+      "routeConnectorAction": "doFillConditionSavingThrow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+      "routeConnectorSha256": "53158acbee365d467cab341ed75609aab7fc2d3092f8d5904a717298e21b25e3",
+      "routeEvidenceBasis": "selected Hypnotic Pattern row accepted only as catalog/save-gated frontier evidence through SaveGatedSpellRouteSubject; Charmed, Incapacitated, Speed-0, and lifecycle support are not claimed here",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleState.save_gated_spell_procedure",
+          "ReducerRouteEvent.qRoute",
+          "SaveGatedSpellRouteSubject",
+          "ConditionChoiceHoleKind",
+          "SpellTargetListHoleKind",
+          "SavingThrowOutcomeHoleKind",
+          "frontier-only: no Charmed lifecycle claim",
+          "frontier-only: no Speed-0 lifecycle claim"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "observedProjectionSha256": "c2e5606f8091f9e0b2e7b23b0b39b89a3f655fcb5ccfa66bfe004cb1bfc032bb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHypnoticPatternFailedSavingThrow"
+    },
+    {
+      "branchAction": "doResolveSleepRepeatSavingThrowFailure",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+      "observedActionTaken": "doResolveSleepRepeatSavingThrowFailure",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doFillRepeatSaveFailure",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
+      "routeConnectorSha256": "c124d6c23ba30449dcceb346d88f57a321ccf9c953db6af627285b60861d95d2",
+      "routeEvidenceBasis": "carried-forward selected repeat-save failure row remains accepted through the copied generic RepeatSaveConditionEffectRouteSubject failure route",
+      "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute",
-          "BattleSubjectKind::MarkedDamageRider*"
+          "RepeatSaveConditionEffectRouteSubject",
+          "SavingThrowOutcomeHoleKind",
+          "BattleConditionLifecycleOwner"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "899a7a80d0ca7cd9d010c0ad35f6f775d135b2cf78f5290b869fe70e8d680ae6",
-        "observedProjectionSha256": "899a7a80d0ca7cd9d010c0ad35f6f775d135b2cf78f5290b869fe70e8d680ae6",
+        "expectedProjectionSha256": "0145d7ad8f9349d6c6d5464972d3aac54a4bb75e120ff02f89699d6ae4941d54",
+        "observedProjectionSha256": "0145d7ad8f9349d6c6d5464972d3aac54a4bb75e120ff02f89699d6ae4941d54",
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
-    },
-    {
-      "branchAction": "doHexMarkedDamageRiderAndLaterTurnTransfer",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doHexMarkedDamageRiderAndLaterTurnTransfer",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "pass"
-      },
-      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
-      "stateCheck": {
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute",
-          "BattleSubjectKind::MarkedDamageRider*"
-        ],
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "fa7e21b0be8c15f51be008e1682f26e50adf2ea77ea5e6734f24a7cdbf279bf6",
-        "observedProjectionSha256": "fa7e21b0be8c15f51be008e1682f26e50adf2ea77ea5e6734f24a7cdbf279bf6",
-        "projection": "qRoute",
-        "tag": "state-match"
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHexMarkedDamageRiderAndLaterTurnTransfer"
-    },
-    {
-      "branchAction": "doDivineFavorWeaponDamageRider",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doDivineFavorWeaponDamageRider",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "target-blocker",
-        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
-        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
-      },
-      "stateCheck": {
-        "tag": "target-blocker",
-        "projection": "qRoute",
-        "comparator": "route-event-list",
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
-        ]
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doDivineFavorWeaponDamageRider"
-    },
-    {
-      "branchAction": "doDivineSmiteAfterHitDamage",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doDivineSmiteAfterHitDamage",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "target-blocker",
-        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
-        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
-      },
-      "stateCheck": {
-        "tag": "target-blocker",
-        "projection": "qRoute",
-        "comparator": "route-event-list",
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
-        ]
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doDivineSmiteAfterHitDamage"
-    },
-    {
-      "branchAction": "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "target-blocker",
-        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
-        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
-      },
-      "stateCheck": {
-        "tag": "target-blocker",
-        "projection": "qRoute",
-        "comparator": "route-event-list",
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
-        ]
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape"
-    },
-    {
-      "branchAction": "doFalseLifeTemporaryHitPoints",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doFalseLifeTemporaryHitPoints",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "target-blocker",
-        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
-        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
-      },
-      "stateCheck": {
-        "tag": "target-blocker",
-        "projection": "qRoute",
-        "comparator": "route-event-list",
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
-        ]
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doFalseLifeTemporaryHitPoints"
-    },
-    {
-      "branchAction": "doLongstriderSpeedIncrease",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doLongstriderSpeedIncrease",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "target-blocker",
-        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
-        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
-      },
-      "stateCheck": {
-        "tag": "target-blocker",
-        "projection": "qRoute",
-        "comparator": "route-event-list",
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
-        ]
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doLongstriderSpeedIncrease"
-    },
-    {
-      "branchAction": "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "target-blocker",
-        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
-        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
-      },
-      "stateCheck": {
-        "tag": "target-blocker",
-        "projection": "qRoute",
-        "comparator": "route-event-list",
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
-        ]
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doSearingSmiteAfterHitTimedDamageAndSaveCleanup"
-    },
-    {
-      "branchAction": "doShillelaghWeaponAttackOverride",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doShillelaghWeaponAttackOverride",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "target-blocker",
-        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
-        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
-      },
-      "stateCheck": {
-        "tag": "target-blocker",
-        "projection": "qRoute",
-        "comparator": "route-event-list",
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
-        ]
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doShillelaghWeaponAttackOverride"
-    },
-    {
-      "branchAction": "doTrueStrikeSpellHostedWeaponAttack",
-      "branchFamily": "step",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "evidenceKind": "target-qnt-mbt-replay",
-      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "observedActionTaken": "doTrueStrikeSpellHostedWeaponAttack",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
-      "result": {
-        "tag": "target-blocker",
-        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
-        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
-      },
-      "stateCheck": {
-        "tag": "target-blocker",
-        "projection": "qRoute",
-        "comparator": "route-event-list",
-        "checkedTargetStateFields": [
-          "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
-        ]
-      },
-      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doTrueStrikeSpellHostedWeaponAttack"
+      "traceId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveSleepRepeatSavingThrowFailure"
     }
   ],
   "blockedRows": [
     {
-      "blockerId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-ADAPTER-NOT-REFRESHED",
-      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
-      "reason": "The generic condition-rider connector rows are accepted, including Paralyzed and laughter-style Incapacitated plus Prone facts, but this dirty lane did not refresh the selected condition-saving-throw adapter to count selected spell rows through those generic route facts."
-    },
-    {
       "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "branchAction": "doDivineFavorWeaponDamageRider",
@@ -411,5 +426,25 @@
       "branchAction": "doTrueStrikeSpellHostedWeaponAttack",
       "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
     }
-  ]
+  ],
+  "selectedConditionSavingThrowReplayRefresh": {
+    "blockerClosed": "SQNT-07A-condition-selected-identity-adapter-not-refreshed",
+    "newAcceptedCount": 5,
+    "newAcceptedRows": [
+      "doResolveBlindnessDeafnessBlindedSavingThrow",
+      "doResolveBlindnessDeafnessDeafenedSavingThrow",
+      "doResolveHoldPersonFailedSavingThrow",
+      "doResolveHoldPersonRepeatSavingThrowSuccess",
+      "doResolveHypnoticPatternFailedSavingThrow"
+    ],
+    "carryForwardAcceptedCount": 4,
+    "carryForwardAcceptedRows": [
+      "doResolveColorSprayFailedSavingThrow",
+      "doResolveEntangleFailedSavingThrow",
+      "doResolveHideousLaughterRepeatSavingThrowSuccess",
+      "doResolveSleepRepeatSavingThrowFailure"
+    ],
+    "acceptanceBasis": "Observed qRoute records are replayed through battle_runtime_save_gated_spell_ordering or battle_runtime_sleep_repeat_save adapter route paths; expected route shapes come from copied generic route connector facts in cleanroom-input.",
+    "hypnoticPatternLimit": "Accepted only as SaveGatedSpellRouteSubject catalog/save-gated frontier evidence; this file does not claim Charmed, Incapacitated, Speed-0, or lifecycle support for Hypnotic Pattern."
+  }
 }

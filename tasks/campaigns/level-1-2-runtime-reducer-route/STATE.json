@@ -21,7 +21,7 @@
         "86c0c70b22fbb4e619a6f154a56b38c7382c7d22",
         "6d9712af44372a73134364778a9bbbc255527e24"
       ],
-      "note": "Diagnostic dirty target replay only. Integrated SQNT-07A spatial/movement and active-effect/condition dirty replay lanes against copied source package e9f75e22. Accepted spatial/movement rows: 16 route connector rows. Accepted active-effect/condition rows: 18 condition connector rows, 9 marked/immunity connector rows, and exactly 4 selected level-one rows through copied generic route facts. Preserved blockers for Jump landing legality/failed-landing Prone, concentration-backed Sleet Storm / Spike Growth / Web-like hazards, 8 selected level-one rows outside lane generic facts, and the unrefreshed selected condition-saving adapter. This does not claim fresh target acceptance."
+      "note": "Diagnostic dirty target replay only. Integrated SQNT-07A spatial/movement and active-effect/condition dirty replay lanes against copied source package e9f75e22. Accepted spatial/movement rows: 16 route connector rows. Accepted active-effect/condition rows: 18 condition connector rows, 9 marked/immunity connector rows, and exactly 4 selected level-one rows through copied generic route facts. The selected condition-saving refresh accepts 5 additional selected rows through copied generic route facts and carries forward the existing 4 selected rows without recounting them as new. Preserved blockers for Jump landing legality/failed-landing Prone, concentration-backed Sleet Storm / Spike Growth / Web-like hazards, and 8 selected level-one rows outside lane generic facts. This does not claim fresh target acceptance."
     },
     "currentHarnessStatus": {
       "checkedAtHead": "6d9712af44372a73134364778a9bbbc255527e24",
@@ -196,7 +196,7 @@
         "JSON parse checks",
         "node scripts/check-cleanroom-harness.cjs (known historical stale debt outside SQNT-07A; no SQNT-07A-specific matches)"
       ],
-      "note": "Diagnostic dirty target replay only; selected condition-saving adapter remains uncounted and no fresh target acceptance is claimed."
+      "note": "Diagnostic dirty target replay only; selected condition-saving adapter refresh accepted 5 additional selected rows through copied generic route facts and carries forward 4 existing selected rows without fresh target acceptance."
     },
     {
       "id": "sqnt07a-spatial-movement-dirty-replay",
@@ -1177,11 +1177,12 @@
         "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt"
       ],
       "acceptedConnectorRows": 27,
-      "acceptedSelectedRowsThroughGenericFacts": 4,
+      "acceptedSelectedRowsThroughGenericFacts": 13,
+      "newSelectedConditionSavingRowsThroughGenericFacts": 5,
+      "carriedForwardSelectedConditionSavingRows": 4,
       "targetBlockedRows": 8,
       "targetBlockers": [
-        "8 selected level-one rows remain outside copied generic route facts.",
-        "Selected condition-saving adapter remains uncounted and was not refreshed by this lane."
+        "8 selected level-one rows remain outside copied generic route facts."
       ],
       "mergeCommit": "6d9712af44372a73134364778a9bbbc255527e24",
       "evidence": "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json",
@@ -4397,9 +4398,8 @@
           "cargo clippy --all-targets -- -D warnings",
           "git diff --check"
         ],
-        "coverageClaim": "SQNT-07A active-effect/condition replay accepts 27 copied connector action rows and 19 public-entrypoint route surfaces for condition lifecycle plus marked damage/immunity active-effect facts, with expected records derived from copied QNT and observed records from public reducer entrypoints",
+        "coverageClaim": "SQNT-07A active-effect/condition replay accepts 27 copied connector action rows and 19 public-entrypoint route surfaces for condition lifecycle plus marked damage/immunity active-effect facts, and the selected condition-saving refresh accepts 5 additional selected rows through copied generic route facts while carrying forward 4 existing selected rows; expected records derive from copied QNT and observed records come from public reducer/shared adapter route paths",
         "blockers": [
-          "SQNT-07A-condition-selected-identity-adapter-not-refreshed",
           "SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts"
         ],
         "reviewFixes": [

@@ -18,11 +18,13 @@ Accepted fresh replay now covers:
 
 - SQNT-07A active-effect/condition generic route facts: 27 copied connector
   rows and 19 public route surfaces.
+- SQNT-07A selected condition-saving adapter refresh: 5 newly accepted selected
+  rows through copied generic route facts, with 4 existing selected rows carried
+  forward but not recounted as new.
 - SQNT-07A spatial/movement generic route facts: 16 copied route rows.
 
 Still blocked:
 
-- `SQNT-07A-condition-selected-identity-adapter-not-refreshed`.
 - `SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts`.
 - `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`.
 - `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
