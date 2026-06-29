@@ -66,10 +66,13 @@
         "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
       ],
       "remainingLane": null,
-      "nextParallelism": "No active lane remains in this source-package consumption wave. Next work should split only around explicit source-input blocker families with non-overlapping route owners.",
-      "activeParallelLanes": [],
-      "activeLane": null,
-      "nextPlannedLane": "completion-audit-or-next-source-input-blocker-wave",
+      "nextParallelism": "Two source-QNT blocker lanes are active in parallel with non-overlapping new focused outputs: weapon-hosted item/attack capability facts and concentration-hazard save-triggered Hit Point damage ownership.",
+      "activeParallelLanes": [
+        "SOURCE-SQNT07A-WEAPON-HOSTED-ITEM-ATTACK-CAPABILITY-FACTS",
+        "SQNT-07A-CONCENTRATION-HAZARD-SAVE-DAMAGE-OWNER"
+      ],
+      "activeLane": "source-input-blocker-wave-after-53c516ee",
+      "nextPlannedLane": "review-and-merge-source-input-blocker-wave",
       "lastCompletedBatch": "source Hex exact-damage concentration-hazard QNT wave",
       "lastCompletedFreshTargetHead": "b3de1456c54162357abed70608ec37cc936dee92",
       "lastCompletedSourceMergeHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
@@ -78,6 +81,7 @@
         "Merged source Hex ability-check roll-mode, exact damage route bridge, and concentration-backed selected hazard route inputs into main source master at 53c516ee1c9fd3898c89a93cb8abe063218e4146.",
         "Merged fresh Jump landing/prone and concentration-backed area hazard generic route-surface replays into fresh target at 444295121a3cbe0631dc36ef2280c27d2ef5631c.",
         "Merged fresh Hex/exact-damage/concentration-hazard source consumption into fresh target at b3de1456c54162357abed70608ec37cc936dee92; verifier now pins the copied QNT import closure before accepting literal comparison records.",
+        "Launched source-QNT blocker wave from 53c516ee1c9fd3898c89a93cb8abe063218e4146: weapon-hosted item/attack capability facts and concentration-hazard save-triggered Hit Point damage ownership.",
         "Retained blockers after the wave: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists."
       ],
       "targetHead": "b3de1456c54162357abed70608ec37cc936dee92",

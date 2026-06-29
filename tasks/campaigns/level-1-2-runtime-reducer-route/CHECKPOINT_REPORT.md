@@ -9,7 +9,8 @@ Campaign: `level-1-2-runtime-reducer-route`
 - Fresh accepted in this checkpoint: `FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION`, after review required the verifier to pin the copied QNT import closure before accepting literal comparison records.
 - Current fresh verifier reports source package `53c516ee1c9fd3898c89a93cb8abe063218e4146`, `100` drivers, `667` in-scope obligations, and `61` out-of-scope obligations.
 - Final fresh checks passed: `python3 tools/verify_fresh_rr_sqnt07a_hex_exact_damage_source_consumption.py`, `python3 tools/verify_current_fresh_target.py`, `cargo test marked_damage_rider_projects_ability_check_roll_mode_until_concentration_cleanup`, `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check`.
-- Active Ralph lanes: none. Retained blockers: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists.
+- Active Ralph lanes: `SOURCE-SQNT07A-WEAPON-HOSTED-ITEM-ATTACK-CAPABILITY-FACTS` in `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-capability` and `SQNT-07A-CONCENTRATION-HAZARD-SAVE-DAMAGE-OWNER` in `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-save-damage`, both launched from source base `53c516ee1c9fd3898c89a93cb8abe063218e4146`.
+- Retained blockers now under active source-QNT work: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists.
 
 ## Bootstrap Snapshot
 

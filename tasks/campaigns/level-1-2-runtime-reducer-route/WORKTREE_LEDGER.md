@@ -34,7 +34,8 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SOURCE-SQNT07A-WEAPON-HOSTED-ITEM-ATTACK-CAPABILITY-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-capability` | `ralph/source-sqnt07a-weapon-hosted-capability` | `53c516ee1c9fd3898c89a93cb8abe063218e4146` | Ramanujan the 5th (`019f13c1-2fb1-7ed2-ae84-a973d17e36ca`) | running; source-QNT-first blocker lane for generic item/attack capability facts without authored identity |
+| SQNT-07A-CONCENTRATION-HAZARD-SAVE-DAMAGE-OWNER | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-save-damage` | `ralph/source-sqnt07a-concentration-hazard-save-damage` | `53c516ee1c9fd3898c89a93cb8abe063218e4146` | Erdos the 5th (`019f13c1-8e29-7313-bfce-7d73bef63d6d`) | running; source-QNT-first blocker lane for generic save-triggered concentration-hazard Hit Point damage ownership |
 
 ## Historical RRCONV-19 Worktrees
 
