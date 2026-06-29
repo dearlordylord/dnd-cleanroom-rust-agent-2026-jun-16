@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE | `/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09e-metamagic-spell-shape` | `ralph/fexp-09e-metamagic-spell-shape` | `76d48f853379d5de62f463677188984afc2d3bda` | Aquinas the 4th (`019f11cb-e8d9-7992-9093-d80ee9cba34f`) | pending | running |
 
 ## Active Source-QNT Lanes
 

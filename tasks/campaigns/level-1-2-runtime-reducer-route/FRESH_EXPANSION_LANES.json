@@ -421,7 +421,7 @@
     {
       "laneId": "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
       "checkpointId": "FEXP-CP6",
-      "status": "pending-after-FEXP-09C",
+      "status": "in-progress",
       "routeClass": "catalog-after-substrate",
       "purpose": "Replay remaining SQNT-07C Distant/Transmuted/Twinned spell-shape rows through copied range, damage-type, and effective-level route facts.",
       "drivers": [
@@ -444,7 +444,7 @@
         "tools/verify_fexp09e_sqnt07c_metamagic_spell_shape.py",
         "STATE_OWNERS.md entries for any new target cardinality/range, damage type, effective spell level, damage-roll, or hit-point state"
       ],
-      "parallelism": "Prefer running after FEXP-09D/G planning settles and not in parallel with FEXP-09F if both need shared damage-roll or hit-point projection changes."
+      "parallelism": "Running alone from base 76d48f853379d5de62f463677188984afc2d3bda in isolated worktree /workspace/typescript/.codex-worktrees/dnd-fresh-fexp09e-metamagic-spell-shape because FEXP-09F may share damage-roll or hit-point projection code."
     },
     {
       "laneId": "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
