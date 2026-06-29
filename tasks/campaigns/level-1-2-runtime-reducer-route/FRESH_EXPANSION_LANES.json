@@ -389,6 +389,112 @@
       "acceptanceSummary": "Running. SQNT-07C Quickened/governor metamagic rows must be replayed from copied route facts through public reducer entrypoints against package 545d784 before this becomes an accepted current-package claim."
     },
     {
+      "laneId": "FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES",
+      "checkpointId": "FEXP-CP6",
+      "status": "pending-after-FEXP-09C",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Replay remaining SQNT-07C Careful/Heightened save-mode rows through copied metamagic save-protection and saving-throw-roll-mode route facts.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt"
+      ],
+      "routeActions": [
+        "doRouteSavingThrowProtection",
+        "doRouteSavingThrowRollMode"
+      ],
+      "estimatedObligations": 9,
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "expectedOutputs": [
+        "EVIDENCE/fexp09d-sqnt07c-metamagic-save-modes.json",
+        "tools/verify_fexp09d_sqnt07c_metamagic_save_modes.py",
+        "STATE_OWNERS.md entries for any new save outcome, save roll-mode, damage adjustment, or condition lifecycle state"
+      ],
+      "parallelism": "Can run beside FEXP-09G after FEXP-09C if evidence/verifier files remain disjoint and shared metamagic resource/admission state is already landed."
+    },
+    {
+      "laneId": "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
+      "checkpointId": "FEXP-CP6",
+      "status": "pending-after-FEXP-09C",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Replay remaining SQNT-07C Distant/Transmuted/Twinned spell-shape rows through copied range, damage-type, and effective-level route facts.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt"
+      ],
+      "routeActions": [
+        "doRouteSpellRangeProjection",
+        "doRouteDamageTypeSubstitution",
+        "doRouteEffectiveSpellLevel"
+      ],
+      "estimatedObligations": 7,
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "expectedOutputs": [
+        "EVIDENCE/fexp09e-sqnt07c-metamagic-spell-shape.json",
+        "tools/verify_fexp09e_sqnt07c_metamagic_spell_shape.py",
+        "STATE_OWNERS.md entries for any new target cardinality/range, damage type, effective spell level, damage-roll, or hit-point state"
+      ],
+      "parallelism": "Prefer running after FEXP-09D/G planning settles and not in parallel with FEXP-09F if both need shared damage-roll or hit-point projection changes."
+    },
+    {
+      "laneId": "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
+      "checkpointId": "FEXP-CP6",
+      "status": "pending-after-FEXP-09C",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Replay remaining SQNT-07C Empowered/Seeking reroll rows through copied damage-dice-reroll and missed-spell-attack-reroll route facts.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-seeking-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt"
+      ],
+      "routeActions": [
+        "doRouteDamageDiceReroll",
+        "doRouteMissedSpellAttackReroll"
+      ],
+      "estimatedObligations": 4,
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "expectedOutputs": [
+        "EVIDENCE/fexp09f-sqnt07c-metamagic-rerolls.json",
+        "tools/verify_fexp09f_sqnt07c_metamagic_rerolls.py",
+        "STATE_OWNERS.md entries for any new attack-roll reroll, damage-dice reroll, damage-roll, or hit-point state"
+      ],
+      "parallelism": "Small lane, but avoid simultaneous implementation with FEXP-09E if both touch shared damage-roll or hit-point projection code."
+    },
+    {
+      "laneId": "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
+      "checkpointId": "FEXP-CP6",
+      "status": "pending-after-FEXP-09C",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Replay remaining SQNT-07C Subtle/Extended component and duration rows through copied spell-component and spell-duration route facts.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt"
+      ],
+      "routeActions": [
+        "doRouteSpellComponentProjection",
+        "doRouteSpellDurationProjection"
+      ],
+      "estimatedObligations": 5,
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "expectedOutputs": [
+        "EVIDENCE/fexp09g-sqnt07c-metamagic-component-duration.json",
+        "tools/verify_fexp09g_sqnt07c_metamagic_component_duration.py",
+        "STATE_OWNERS.md entries for any new component projection, duration, active-effect, or concentration state"
+      ],
+      "parallelism": "Can run beside FEXP-09D after FEXP-09C if evidence/verifier files remain disjoint and shared metamagic resource/admission state is already landed."
+    },
+    {
       "laneId": "FRESH-RR-SPATIAL-DAMAGE",
       "checkpointId": "FRESH-RR-CP3",
       "status": "merged-with-blockers",
