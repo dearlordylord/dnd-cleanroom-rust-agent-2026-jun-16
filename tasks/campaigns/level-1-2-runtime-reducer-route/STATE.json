@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "current-fresh-package-accepted-awaiting-completion-audit",
+  "status": "completion-audit-lanes-running",
   "currentFreshPackageCheckpoint": {
     "status": "accepted",
     "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
@@ -72,10 +72,18 @@
         "FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION"
       ],
       "remainingLane": null,
-      "nextParallelism": "No active lane. Select future work from completion audit results before launching fresh lanes.",
-      "activeParallelLanes": [],
+      "nextParallelism": "Three COMP-AUDIT report lanes are running in disjoint worktrees; merge reports before selecting implementation lanes.",
+      "activeParallelLanes": [
+        "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
+        "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION",
+        "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP"
+      ],
       "activeLane": null,
-      "activeLanes": [],
+      "activeLanes": [
+        "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
+        "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION",
+        "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP"
+      ],
       "nextExecutableLaneSet": null,
       "nextPlannedLane": "COMP-AUDIT completion reports",
       "lastCompletedBatch": "FEXP09B current-gate reconciliation",
@@ -890,7 +898,10 @@
     "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "merged-packaged-source-input",
     "SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY": "merged-verified",
     "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY": "accepted-with-known-harness-debt",
-    "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY": "accepted-with-known-harness-debt"
+    "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY": "accepted-with-known-harness-debt",
+    "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX": "running-audit",
+    "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION": "running-audit",
+    "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP": "running-audit"
   },
   "lastIntegrationVerification": {
     "head": "6d9712af44372a73134364778a9bbbc255527e24",
@@ -4797,10 +4808,14 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [],
+    "activeParallelLanes": [
+      "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
+      "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION",
+      "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP"
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "COMP-AUDIT completion reports",
+    "nextPlannedLane": "COMP-AUDIT completion reports running",
     "nextWorkRecommendations": [
       "Source master 4d196258a51f4264803ff11f7c806c969f0aff2d now contains accepted Hex ability-check roll-mode, exact damage route bridge, selected concentration-backed hazard route inputs, weapon-hosted capability facts, and concentration-hazard save-triggered Hit Point damage ownership.",
       "Fresh target ff09b6579ebb507f3c8dca06f2b040d0d46d05fb consumes those facts through copied QNT and public reducer observations.",
@@ -4858,7 +4873,7 @@
     ]
   },
   "nextExecutableLaneSet": {
-    "status": "candidate-audit-lanes-not-launched",
+    "status": "running-audit-lanes",
     "plan": "tasks/campaigns/level-1-2-runtime-reducer-route/NEXT_COMPLETION_AUDIT_LANES.md",
     "basePolicy": "Use current campaign-control HEAD when launching each audit lane; perform the AGENTS base ancestry check before work.",
     "lanes": [
@@ -4869,7 +4884,11 @@
           "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_01_CURRENT_PACKAGE_GATE_MATRIX.md"
         ],
         "parallelGroup": "completion-audit-readonly",
-        "status": "candidate"
+        "status": "running-audit",
+        "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-01-current-package-gate",
+        "branch": "ralph/comp-audit-01-current-package-gate",
+        "agent": "pending spawn"
       },
       {
         "laneId": "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION",
@@ -4878,7 +4897,11 @@
           "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_02_HISTORICAL_FOUNDATION_RENEWAL_DECISION.md"
         ],
         "parallelGroup": "completion-audit-readonly",
-        "status": "candidate"
+        "status": "running-audit",
+        "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-02-foundation-renewal",
+        "branch": "ralph/comp-audit-02-foundation-renewal",
+        "agent": "pending spawn"
       },
       {
         "laneId": "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP",
@@ -4887,9 +4910,40 @@
           "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_03_BLOCKER_TO_LANE_MAP.md"
         ],
         "parallelGroup": "completion-audit-readonly",
-        "status": "candidate"
+        "status": "running-audit",
+        "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-03-blocker-map",
+        "branch": "ralph/comp-audit-03-blocker-map",
+        "agent": "pending spawn"
       }
     ],
-    "integrationRule": "Merge the three audit reports before launching implementation. Implementation lanes become executable only after this set is merged and STATE.json is updated with concrete lane bases."
-  }
+    "integrationRule": "Merge the three audit reports before launching implementation. Implementation lanes become executable only after this set is merged and STATE.json is updated with concrete lane bases.",
+    "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5"
+  },
+  "activeParallelLanes": [
+    {
+      "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-01-current-package-gate",
+      "branch": "ralph/comp-audit-01-current-package-gate",
+      "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
+      "status": "running-audit",
+      "agent": "pending spawn"
+    },
+    {
+      "laneId": "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-02-foundation-renewal",
+      "branch": "ralph/comp-audit-02-foundation-renewal",
+      "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
+      "status": "running-audit",
+      "agent": "pending spawn"
+    },
+    {
+      "laneId": "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-03-blocker-map",
+      "branch": "ralph/comp-audit-03-blocker-map",
+      "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
+      "status": "running-audit",
+      "agent": "pending spawn"
+    }
+  ]
 }
