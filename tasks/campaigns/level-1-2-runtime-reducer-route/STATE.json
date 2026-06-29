@@ -4891,7 +4891,7 @@
         "baseSha": "8f37459edf5585313314b91a3969aa38741a82a1",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-package-refresh-source-01ffe",
         "branch": "ralph/fresh-package-refresh-source-01ffe-reaction-facts",
-        "agent": "pending spawn"
+        "agent": "Lorentz the 5th (019f1468-4777-7702-819c-288c9054c377)"
       }
     ],
     "deferredLanes": [
@@ -4918,7 +4918,7 @@
       "branch": "ralph/fresh-package-refresh-source-01ffe-reaction-facts",
       "baseSha": "8f37459edf5585313314b91a3969aa38741a82a1",
       "status": "running",
-      "agent": "pending spawn"
+      "agent": "Lorentz the 5th (019f1468-4777-7702-819c-288c9054c377)"
     }
   ],
   "completionAuditReports": [
