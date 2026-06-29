@@ -26,13 +26,13 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-condition-saving-selected` | `ralph/fresh-sqnt07a-condition-saving-selected` | `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` | Harvey the 5th (`019f1448-72ac-7a73-8c1d-028d51099d20`) | pending | running |
+| _none_ | | | | | | |
 
 ## Active Source-QNT Lanes
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SOURCE-REACTION-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-reaction-projection-facts` | `ralph/source-reaction-projection-facts` | `4d196258a51f4264803ff11f7c806c969f0aff2d` | Einstein the 5th (`019f1448-090d-7222-ae15-43509ed3e721`) | running |
+| _none_ | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -73,6 +73,8 @@ When launching a lane:
 | SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07c-metamagic-replay` | `ralph/sqnt07c-metamagic-current-package-replay` | not recorded in active ledger | `344111e89f012a2b1d05c6bf64660b30810c3217` | merged-closed; worker Zeno the 3rd (`019f0f09-25a0-7682-897e-930650baa385`); base `84c637980698971b3df1d8dc4a613bc7b7bc50af`; removable after retention decision |
 | SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07d-active-feature-replay` | `ralph/sqnt07d-active-feature-current-package-replay` | not recorded in active ledger | `e1a35bc598b8f45fda2fc65c2ae0886f925d1305` | merged-closed; worker Heisenberg the 3rd (`019f0f09-81d2-71a1-a64f-b79a86203013`); base `84c637980698971b3df1d8dc4a613bc7b7bc50af`; removable after retention decision |
 | FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION | `/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09b-current-gate-reconciliation` | `ralph/fresh-fexp09b-current-gate-reconciliation` | `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` | `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` | removable after retention decision; accepted; reconciles FEXP-09B current-package claim into the aggregate fresh target gate, enforces target metadata consistency and metadata-only post-target changes; reviewed by Lovelace, Confucius, Cicero, and orchestrator |
+| SOURCE-REACTION-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-reaction-projection-facts` | `ralph/source-reaction-projection-facts` | `01ffe81e9166af50443d4aa4a76a4c34ca79d2c1` | source master fast-forward `01ffe81e9166af50443d4aa4a76a4c34ca79d2c1` | completed; worker Einstein the 5th (`019f1448-090d-7222-ae15-43509ed3e721`), fixer Wegener the 5th (`019f1459-e27c-70b1-aeb6-c90e747582e6`), reviewer Meitner the 5th (`019f1456-fb16-7e73-b512-95b1b68b003f`); removable after retention decision |
+| FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-condition-saving-selected` | `ralph/fresh-sqnt07a-condition-saving-selected` | lane `8c8b212d1543a5bd658729405ece6a663d4c9f92`; aggregate target `8f37459edf5585313314b91a3969aa38741a82a1` | fresh target commit `8f37459edf5585313314b91a3969aa38741a82a1` | completed; worker Harvey the 5th (`019f1448-72ac-7a73-8c1d-028d51099d20`), fixer Nietzsche the 5th (`019f145a-2c9b-7c70-8310-a3b73702aed8`), reviewer Singer the 5th (`019f1457-3818-7ed3-8c09-7431650f10dd`); accepted 16th current-package runtime claim; removable after retention decision |
 | COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-01-current-package-gate` | `ralph/comp-audit-01-current-package-gate` | `a45bf8d673ea8a34da7ab0d23dece7e2849b79b8` | campaign-control report import | completed-report; worker Pascal the 5th (`019f143d-e2ce-7901-a5af-c8cd2a9865f9`); removable after retention decision |
 | COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-02-foundation-renewal` | `ralph/comp-audit-02-foundation-renewal` | `0b7235250bc07d8744487e9d38638fec39d8efba` | campaign-control report import | completed-report; worker Raman the 5th (`019f143e-b74e-72b2-af90-4c45f5810b62`); removable after retention decision |
 | COMP-AUDIT-03-BLOCKER-TO-LANE-MAP | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-03-blocker-map` | `ralph/comp-audit-03-blocker-map` | `4e1e1dc136483ebcc087eb4a49f6ffee800a23da` | campaign-control report import | completed-report; worker Ampere the 5th (`019f143f-129a-7612-8a9d-53ac322fd2aa`); removable after retention decision |

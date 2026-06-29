@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "next-implementation-lanes-running",
+  "status": "condition-saving-accepted-source-reaction-merged-awaiting-package-refresh",
   "currentFreshPackageCheckpoint": {
     "status": "accepted",
     "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
-    "targetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
+    "targetHead": "8f37459edf5585313314b91a3969aa38741a82a1",
     "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d",
     "inventory": {
       "driverFiles": 100,
@@ -28,8 +28,10 @@
       "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
       "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
       "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
-      "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
-    ]
+      "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION",
+      "FRESH-RR-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY"
+    ],
+    "acceptedRuntimeClaimCount": 16
   },
   "dirtyCleanroomOnly": false,
   "currentCheckpoint": {
@@ -49,7 +51,7 @@
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint"
     },
     "nextCampaignBatch": {
-      "status": "next-implementation-lanes-running",
+      "status": "condition-saving-accepted-source-reaction-merged-awaiting-package-refresh",
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
@@ -72,21 +74,15 @@
         "FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION"
       ],
       "remainingLane": null,
-      "nextParallelism": "Two implementation lanes running in parallel: source reaction projection facts and fresh condition-saving selected replay.",
-      "activeParallelLanes": [
-        "SOURCE-REACTION-PROJECTION-FACTS",
-        "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY"
-      ],
+      "nextParallelism": "Package refresh is serial; after it lands, reaction projection replay and object-stale replay can be reassessed for parallelism.",
+      "activeParallelLanes": [],
       "activeLane": null,
-      "activeLanes": [
-        "SOURCE-REACTION-PROJECTION-FACTS",
-        "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY"
-      ],
+      "activeLanes": [],
       "nextExecutableLaneSet": null,
-      "nextPlannedLane": "SOURCE-REACTION-PROJECTION-FACTS and FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
-      "lastCompletedBatch": "FEXP09B current-gate reconciliation",
-      "lastCompletedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
-      "lastCompletedSourceMergeHead": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+      "nextPlannedLane": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
+      "lastCompletedBatch": "SOURCE-REACTION-PROJECTION-FACTS + FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
+      "lastCompletedFreshTargetHead": "8f37459edf5585313314b91a3969aa38741a82a1",
+      "lastCompletedSourceMergeHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
       "notes": [
         "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",
         "Merged source Hex ability-check roll-mode, exact damage route bridge, and concentration-backed selected hazard route inputs into main source master at 53c516ee1c9fd3898c89a93cb8abe063218e4146.",
@@ -104,8 +100,8 @@
         "Merged FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION into the accepted fresh target at ff09b6579ebb507f3c8dca06f2b040d0d46d05fb.",
         "Verification passed on the accepted fresh target: python3 tools/verify_fexp09b_sqnt07b_species_passive.py, python3 tools/verify_current_fresh_target.py, cargo fmt --check, cargo test, cargo clippy --all-targets -- -D warnings, and git diff --check."
       ],
-      "targetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
-      "sourceRouteWitnessHead": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+      "targetHead": "8f37459edf5585313314b91a3969aa38741a82a1",
+      "sourceRouteWitnessHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
       "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d",
       "nextExecutableLaneSetRef": "nextExecutableLaneSet"
     },
@@ -900,11 +896,13 @@
     "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX": "merged-report",
     "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION": "merged-report",
     "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP": "merged-report",
-    "SOURCE-REACTION-PROJECTION-FACTS": "running",
-    "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY": "running",
-    "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "deferred-until-first-fresh-lane-lands",
+    "SOURCE-REACTION-PROJECTION-FACTS": "merged-to-source-master",
+    "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY": "merged-accepted-current-package",
+    "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "deferred-after-package-refresh-decision",
     "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP": "deferred-planning-guidance",
-    "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION": "optional-guidance"
+    "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION": "optional-guidance",
+    "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS": "ready",
+    "FRESH-REACTION-PROJECTION-REPLAY": "blocked-on-package-refresh"
   },
   "lastIntegrationVerification": {
     "head": "6d9712af44372a73134364778a9bbbc255527e24",
@@ -4044,12 +4042,12 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "current-fresh-package-renewal-batch-accepted",
-    "activeLane": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
+    "status": "condition-saving-accepted-awaiting-package-refresh",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
-    "strongestRuntimeEvidenceHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
+    "acceptedTargetHead": "8f37459edf5585313314b91a3969aa38741a82a1",
+    "strongestRuntimeEvidenceHead": "8f37459edf5585313314b91a3969aa38741a82a1",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -4811,13 +4809,10 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [
-      "SOURCE-REACTION-PROJECTION-FACTS",
-      "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY"
-    ],
+    "activeParallelLanes": [],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "implementation batch running; aggregate fresh updates remain serialized",
+    "nextPlannedLane": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
     "nextWorkRecommendations": [
       "Source master 4d196258a51f4264803ff11f7c806c969f0aff2d now contains accepted Hex ability-check roll-mode, exact damage route bridge, selected concentration-backed hazard route inputs, weapon-hosted capability facts, and concentration-hazard save-triggered Hit Point damage ownership.",
       "Fresh target ff09b6579ebb507f3c8dca06f2b040d0d46d05fb consumes those facts through copied QNT and public reducer observations.",
@@ -4875,85 +4870,37 @@
     ]
   },
   "nextExecutableLaneSet": {
-    "status": "running-implementation-lanes",
-    "selectedByReports": [
-      "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_01_CURRENT_PACKAGE_GATE_MATRIX.md",
-      "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_02_HISTORICAL_FOUNDATION_RENEWAL_DECISION.md",
-      "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_03_BLOCKER_TO_LANE_MAP.md"
-    ],
+    "status": "ready-serial-package-refresh-not-launched",
+    "reason": "Source master advanced from current cleanroom-input package 4d196258 to 01ffe81e with reaction projection QNT facts. Refresh the package before accepting reaction projection replay so new runtime evidence is not immediately stale.",
     "lanes": [
       {
-        "laneId": "SOURCE-REACTION-PROJECTION-FACTS",
-        "kind": "source-qnt",
-        "status": "running",
-        "basePolicy": "Resolve from /workspace/typescript/dnd master at launch; perform AGENTS base ancestry check in the source worktree.",
-        "purpose": "Add or confirm generic reaction projection route facts for reaction Armor Class projection, after-damage save/damage payloads, interruption end/resume, and slot-preservation shapes without authored identity dispatch.",
-        "writeScopeKind": "source repository focused QNT/guidance/route inventory only; no fresh target runtime files",
-        "dependencies": [
-          "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
-          "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP"
-        ],
-        "parallelGroup": "next-implementation-batch-01",
-        "baseSha": "4d196258a51f4264803ff11f7c806c969f0aff2d",
-        "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-reaction-projection-facts",
-        "branch": "ralph/source-reaction-projection-facts",
-        "agent": "Einstein the 5th (019f1448-090d-7222-ae15-43509ed3e721)"
-      },
-      {
-        "laneId": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
-        "kind": "fresh-replay",
-        "status": "running",
-        "basePolicy": "Resolve from accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at launch; expected base ff09b6579ebb507f3c8dca06f2b040d0d46d05fb unless target has advanced.",
-        "purpose": "Replay selected condition-saving rows through already packaged generic condition/save/repeat-save route facts and public reducer observations without authored identity dispatch.",
-        "writeScopeKind": "fresh target focused evidence/example/verifier and minimal runtime support; aggregate state/verifier updates serialized after focused work",
-        "dependencies": [
-          "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
-          "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION",
-          "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP"
-        ],
-        "parallelGroup": "next-implementation-batch-01",
-        "baseSha": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
-        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-condition-saving-selected",
-        "branch": "ralph/fresh-sqnt07a-condition-saving-selected",
-        "agent": "Harvey the 5th (019f1448-72ac-7a73-8c1d-028d51099d20)"
+        "laneId": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
+        "kind": "fresh-package-refresh",
+        "status": "ready",
+        "basePolicy": "Resolve from accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at launch; expected base 8f37459edf5585313314b91a3969aa38741a82a1 unless target advances.",
+        "sourceHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
+        "purpose": "Refresh copied cleanroom-input from source master 01ffe81e so reaction projection facts are available to future fresh replay; update manifest/hash/inventory/current gate without adding new runtime behavior.",
+        "parallelGroup": "serial-package-refresh",
+        "writeScopeKind": "fresh target cleanroom-input package, manifest/hash/current package metadata/verifier only"
       }
     ],
     "deferredLanes": [
       {
+        "laneId": "FRESH-REACTION-PROJECTION-REPLAY",
+        "reason": "Needs refreshed package containing SOURCE-REACTION-PROJECTION-FACTS."
+      },
+      {
         "laneId": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
-        "reason": "Likely fresh target src/lib.rs and aggregate verifier/state overlap; run after one fresh lane lands."
+        "reason": "Strong fresh replay candidate, but run after package-refresh decision so evidence is current-package."
       },
       {
         "laneId": "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP",
-        "reason": "Planning map only; launch if narrower lanes leave ambiguous residual selected-spell queue."
-      },
-      {
-        "laneId": "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION",
-        "reason": "Optional guidance; current FEXP-08/Jump/concentration/Hex evidence already consumes most spatial family."
+        "reason": "Planning map only if residual selected-spell queue remains ambiguous after narrower lanes."
       }
     ],
-    "integrationRule": "Launch the two ready lanes in separate worktrees. Do not edit aggregate fresh target state/verifier concurrently; the orchestrator serializes package refresh and aggregate gate updates after worker review."
+    "integrationRule": "Run the package refresh serially. After it passes the aggregate gate, select fresh reaction projection and object-stale replay with non-overlapping write scopes or run sequentially if src/lib.rs/verifier overlap remains likely."
   },
-  "activeParallelLanes": [
-    {
-      "laneId": "SOURCE-REACTION-PROJECTION-FACTS",
-      "kind": "source-qnt",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-reaction-projection-facts",
-      "branch": "ralph/source-reaction-projection-facts",
-      "baseSha": "4d196258a51f4264803ff11f7c806c969f0aff2d",
-      "status": "running",
-      "agent": "Einstein the 5th (019f1448-090d-7222-ae15-43509ed3e721)"
-    },
-    {
-      "laneId": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
-      "kind": "fresh-replay",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-condition-saving-selected",
-      "branch": "ralph/fresh-sqnt07a-condition-saving-selected",
-      "baseSha": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
-      "status": "running",
-      "agent": "Harvey the 5th (019f1448-72ac-7a73-8c1d-028d51099d20)"
-    }
-  ],
+  "activeParallelLanes": [],
   "completionAuditReports": [
     {
       "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
@@ -4973,5 +4920,34 @@
       "laneCommit": "4e1e1dc136483ebcc087eb4a49f6ffee800a23da",
       "report": "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_03_BLOCKER_TO_LANE_MAP.md"
     }
-  ]
+  ],
+  "lastMergedImplementationBatch": {
+    "sourceLane": {
+      "laneId": "SOURCE-REACTION-PROJECTION-FACTS",
+      "sourceMasterHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
+      "laneHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
+      "review": "follow-up clear to integrate",
+      "verification": [
+        "focused MBT reaction-interrupt-routes.mbt.test.ts passed",
+        "pnpm check:mbt-driver-closure passed",
+        "pnpm cleanroom-branch-coverage:check passed",
+        "rules-kernel-coverage baseline failure unrelated"
+      ]
+    },
+    "freshLane": {
+      "laneId": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
+      "freshTargetHead": "8f37459edf5585313314b91a3969aa38741a82a1",
+      "laneHead": "8c8b212d1543a5bd658729405ece6a663d4c9f92",
+      "aggregateCommit": "8f37459edf5585313314b91a3969aa38741a82a1",
+      "acceptedRuntimeClaim": "FRESH-RR-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
+      "review": "follow-up clear to integrate",
+      "verification": [
+        "python3 tools/verify_current_fresh_target.py passed",
+        "cargo fmt --check passed",
+        "cargo test passed",
+        "cargo clippy --all-targets -- -D warnings passed",
+        "git diff --check passed"
+      ]
+    }
+  }
 }
