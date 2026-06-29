@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-object-stale-public-history-replay` | `ralph/fresh-object-stale-public-history-replay` | `5c6163ac6988495e0435b81fcb2696e661c6eca8` | pending | pending | running |
+| FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-object-stale-public-history-replay` | `ralph/fresh-object-stale-public-history-replay` | `5c6163ac6988495e0435b81fcb2696e661c6eca8` | Mencius the 5th (`019f1493-a45f-7f01-a436-6363e765c010`) | pending | running |
 
 ## Active Source-QNT Lanes
 

@@ -4895,7 +4895,7 @@
         "baseSha": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-object-stale-public-history-replay",
         "branch": "ralph/fresh-object-stale-public-history-replay",
-        "agent": "pending"
+        "agent": "Mencius the 5th (019f1493-a45f-7f01-a436-6363e765c010)"
       }
     ],
     "deferredLanes": [
@@ -4914,7 +4914,7 @@
       "branch": "ralph/fresh-object-stale-public-history-replay",
       "baseSha": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
       "status": "running",
-      "agent": "pending"
+      "agent": "Mencius the 5th (019f1493-a45f-7f01-a436-6363e765c010)"
     }
   ],
   "completionAuditReports": [
