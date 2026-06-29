@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-REACTION-PROJECTION-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-reaction-projection-replay` | `ralph/fresh-reaction-projection-replay` | `059881d245cf8b1be4cc8cfea5f7dcde48aba5ee` | pending | pending | running |
 
 ## Active Source-QNT Lanes
 

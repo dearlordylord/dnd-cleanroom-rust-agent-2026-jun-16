@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "package-refresh-accepted-awaiting-fresh-replay",
+  "status": "fresh-reaction-projection-replay-running",
   "currentFreshPackageCheckpoint": {
     "status": "accepted",
     "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
@@ -51,7 +51,7 @@
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint"
     },
     "nextCampaignBatch": {
-      "status": "package-refresh-accepted-awaiting-fresh-replay",
+      "status": "fresh-reaction-projection-replay-running",
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
@@ -75,9 +75,13 @@
       ],
       "remainingLane": null,
       "nextParallelism": "Package refresh is serial; after it lands, reaction projection replay and object-stale replay can be reassessed for parallelism.",
-      "activeParallelLanes": [],
-      "activeLane": null,
-      "activeLanes": [],
+      "activeParallelLanes": [
+        "FRESH-REACTION-PROJECTION-REPLAY"
+      ],
+      "activeLane": "FRESH-REACTION-PROJECTION-REPLAY",
+      "activeLanes": [
+        "FRESH-REACTION-PROJECTION-REPLAY"
+      ],
       "nextExecutableLaneSet": [
         "FRESH-REACTION-PROJECTION-REPLAY"
       ],
@@ -904,7 +908,7 @@
     "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP": "deferred-planning-guidance",
     "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION": "optional-guidance",
     "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS": "merged-verified",
-    "FRESH-REACTION-PROJECTION-REPLAY": "ready"
+    "FRESH-REACTION-PROJECTION-REPLAY": "running"
   },
   "lastIntegrationVerification": {
     "head": "6d9712af44372a73134364778a9bbbc255527e24",
@@ -4044,8 +4048,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "package-refresh-accepted-awaiting-fresh-replay",
-    "activeLane": null,
+    "status": "fresh-reaction-projection-replay-running",
+    "activeLane": "FRESH-REACTION-PROJECTION-REPLAY",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
@@ -4811,7 +4815,9 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [],
+    "activeParallelLanes": [
+      "FRESH-REACTION-PROJECTION-REPLAY"
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FRESH-REACTION-PROJECTION-REPLAY",
@@ -4873,19 +4879,22 @@
     ]
   },
   "nextExecutableLaneSet": {
-    "status": "ready",
+    "status": "running",
     "reason": "Source master 01ffe81e reaction projection facts are now copied into the accepted fresh package at 059881d. The next runtime evidence should accept those projection facts through public reducer observations without reading source implementation.",
     "lanes": [
       {
         "laneId": "FRESH-REACTION-PROJECTION-REPLAY",
         "kind": "fresh-runtime-replay",
-        "status": "ready",
+        "status": "running",
         "basePolicy": "Resolve from accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at launch; expected base 059881d245cf8b1be4cc8cfea5f7dcde48aba5ee unless target advances.",
         "sourceHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
         "purpose": "Consume copied reaction projection facts from battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt through fresh Rust public reducer observations, preserving the no-authored-identity-dispatch boundary.",
         "parallelGroup": "serial-fresh-runtime",
         "writeScopeKind": "fresh target runtime/evidence/verifier for reaction projection only",
-        "baseSha": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee"
+        "baseSha": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-reaction-projection-replay",
+        "branch": "ralph/fresh-reaction-projection-replay",
+        "agent": "pending"
       }
     ],
     "deferredLanes": [
@@ -4900,7 +4909,17 @@
     ],
     "integrationRule": "Launch reaction projection as the next single fresh runtime lane from accepted target 059881d. Reassess object-stale replay after reaction projection lands."
   },
-  "activeParallelLanes": [],
+  "activeParallelLanes": [
+    {
+      "laneId": "FRESH-REACTION-PROJECTION-REPLAY",
+      "kind": "fresh-runtime-replay",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-reaction-projection-replay",
+      "branch": "ralph/fresh-reaction-projection-replay",
+      "baseSha": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
+      "status": "running",
+      "agent": "pending"
+    }
+  ],
   "completionAuditReports": [
     {
       "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
