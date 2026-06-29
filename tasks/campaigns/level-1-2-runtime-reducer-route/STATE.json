@@ -77,7 +77,7 @@
       "activeLane": null,
       "activeLanes": [],
       "nextExecutableLaneSet": null,
-      "nextPlannedLane": "completion-audit-selected-fresh-runtime-coverage",
+      "nextPlannedLane": "COMP-AUDIT completion reports",
       "lastCompletedBatch": "FEXP09B current-gate reconciliation",
       "lastCompletedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
       "lastCompletedSourceMergeHead": "4d196258a51f4264803ff11f7c806c969f0aff2d",
@@ -100,7 +100,8 @@
       ],
       "targetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
       "sourceRouteWitnessHead": "4d196258a51f4264803ff11f7c806c969f0aff2d",
-      "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d"
+      "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+      "nextExecutableLaneSetRef": "nextExecutableLaneSet"
     },
     "campaignControlHeadNote": "This field records the committed checkpoint head before later bookkeeping commits. For the live campaign head, use git rev-parse HEAD in the campaign control worktree."
   },
@@ -4799,7 +4800,7 @@
     "activeParallelLanes": [],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "completion-audit-selected-fresh-runtime-coverage",
+    "nextPlannedLane": "COMP-AUDIT completion reports",
     "nextWorkRecommendations": [
       "Source master 4d196258a51f4264803ff11f7c806c969f0aff2d now contains accepted Hex ability-check roll-mode, exact damage route bridge, selected concentration-backed hazard route inputs, weapon-hosted capability facts, and concentration-hazard save-triggered Hit Point damage ownership.",
       "Fresh target ff09b6579ebb507f3c8dca06f2b040d0d46d05fb consumes those facts through copied QNT and public reducer observations.",
@@ -4821,7 +4822,8 @@
       "Merged fresh Hex/exact-damage/concentration-hazard source consumption into fresh target at b3de1456c54162357abed70608ec37cc936dee92.",
       "Merged fresh source blocker consumption into fresh target at ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44; weapon-hosted item/attack capability facts and concentration-hazard save-triggered exact Hit Point damage are accepted through copied QNT plus public reducer observations.",
       "Merged FEXP09B current-gate reconciliation into fresh target at ff09b6579ebb507f3c8dca06f2b040d0d46d05fb; aggregate verifier now enforces the standalone FEXP-09B claim and metadata/target consistency."
-    ]
+    ],
+    "nextExecutableLaneSetRef": "nextExecutableLaneSet"
   },
   "sdkTracerBullet": {
     "status": "reviewed-accepted",
@@ -4854,5 +4856,40 @@
       "git diff --check",
       "git status --short"
     ]
+  },
+  "nextExecutableLaneSet": {
+    "status": "candidate-audit-lanes-not-launched",
+    "plan": "tasks/campaigns/level-1-2-runtime-reducer-route/NEXT_COMPLETION_AUDIT_LANES.md",
+    "basePolicy": "Use current campaign-control HEAD when launching each audit lane; perform the AGENTS base ancestry check before work.",
+    "lanes": [
+      {
+        "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
+        "kind": "audit",
+        "writeScope": [
+          "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_01_CURRENT_PACKAGE_GATE_MATRIX.md"
+        ],
+        "parallelGroup": "completion-audit-readonly",
+        "status": "candidate"
+      },
+      {
+        "laneId": "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION",
+        "kind": "audit",
+        "writeScope": [
+          "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_02_HISTORICAL_FOUNDATION_RENEWAL_DECISION.md"
+        ],
+        "parallelGroup": "completion-audit-readonly",
+        "status": "candidate"
+      },
+      {
+        "laneId": "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP",
+        "kind": "audit",
+        "writeScope": [
+          "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_03_BLOCKER_TO_LANE_MAP.md"
+        ],
+        "parallelGroup": "completion-audit-readonly",
+        "status": "candidate"
+      }
+    ],
+    "integrationRule": "Merge the three audit reports before launching implementation. Implementation lanes become executable only after this set is merged and STATE.json is updated with concrete lane bases."
   }
 }
