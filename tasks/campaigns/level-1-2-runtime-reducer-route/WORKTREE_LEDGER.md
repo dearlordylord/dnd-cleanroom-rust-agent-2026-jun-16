@@ -26,13 +26,13 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-condition-saving-selected` | `ralph/fresh-sqnt07a-condition-saving-selected` | `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` | pending spawn | pending | running |
 
 ## Active Source-QNT Lanes
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SOURCE-REACTION-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-reaction-projection-facts` | `ralph/source-reaction-projection-facts` | `4d196258a51f4264803ff11f7c806c969f0aff2d` | pending spawn | running |
 
 ## Historical RRCONV-19 Worktrees
 

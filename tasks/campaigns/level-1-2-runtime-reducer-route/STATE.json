@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "completion-audit-merged-next-implementation-ready",
+  "status": "next-implementation-lanes-running",
   "currentFreshPackageCheckpoint": {
     "status": "accepted",
     "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
@@ -49,7 +49,7 @@
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint"
     },
     "nextCampaignBatch": {
-      "status": "completion-audit-merged-next-implementation-ready",
+      "status": "next-implementation-lanes-running",
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
@@ -72,10 +72,16 @@
         "FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION"
       ],
       "remainingLane": null,
-      "nextParallelism": "Two ready lanes can run in parallel because one is source-QNT/guidance and one is fresh target replay; aggregate fresh updates remain serialized.",
-      "activeParallelLanes": [],
+      "nextParallelism": "Two implementation lanes running in parallel: source reaction projection facts and fresh condition-saving selected replay.",
+      "activeParallelLanes": [
+        "SOURCE-REACTION-PROJECTION-FACTS",
+        "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY"
+      ],
       "activeLane": null,
-      "activeLanes": [],
+      "activeLanes": [
+        "SOURCE-REACTION-PROJECTION-FACTS",
+        "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY"
+      ],
       "nextExecutableLaneSet": null,
       "nextPlannedLane": "SOURCE-REACTION-PROJECTION-FACTS and FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
       "lastCompletedBatch": "FEXP09B current-gate reconciliation",
@@ -894,8 +900,8 @@
     "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX": "merged-report",
     "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION": "merged-report",
     "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP": "merged-report",
-    "SOURCE-REACTION-PROJECTION-FACTS": "ready",
-    "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY": "ready",
+    "SOURCE-REACTION-PROJECTION-FACTS": "running",
+    "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY": "running",
     "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "deferred-until-first-fresh-lane-lands",
     "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP": "deferred-planning-guidance",
     "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION": "optional-guidance"
@@ -4039,7 +4045,7 @@
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
     "status": "current-fresh-package-renewal-batch-accepted",
-    "activeLane": null,
+    "activeLane": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
@@ -4805,10 +4811,13 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [],
+    "activeParallelLanes": [
+      "SOURCE-REACTION-PROJECTION-FACTS",
+      "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY"
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY plus source reaction projection facts in parallel",
+    "nextPlannedLane": "implementation batch running; aggregate fresh updates remain serialized",
     "nextWorkRecommendations": [
       "Source master 4d196258a51f4264803ff11f7c806c969f0aff2d now contains accepted Hex ability-check roll-mode, exact damage route bridge, selected concentration-backed hazard route inputs, weapon-hosted capability facts, and concentration-hazard save-triggered Hit Point damage ownership.",
       "Fresh target ff09b6579ebb507f3c8dca06f2b040d0d46d05fb consumes those facts through copied QNT and public reducer observations.",
@@ -4866,7 +4875,7 @@
     ]
   },
   "nextExecutableLaneSet": {
-    "status": "ready-implementation-lanes-not-launched",
+    "status": "running-implementation-lanes",
     "selectedByReports": [
       "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_01_CURRENT_PACKAGE_GATE_MATRIX.md",
       "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_02_HISTORICAL_FOUNDATION_RENEWAL_DECISION.md",
@@ -4876,7 +4885,7 @@
       {
         "laneId": "SOURCE-REACTION-PROJECTION-FACTS",
         "kind": "source-qnt",
-        "status": "ready",
+        "status": "running",
         "basePolicy": "Resolve from /workspace/typescript/dnd master at launch; perform AGENTS base ancestry check in the source worktree.",
         "purpose": "Add or confirm generic reaction projection route facts for reaction Armor Class projection, after-damage save/damage payloads, interruption end/resume, and slot-preservation shapes without authored identity dispatch.",
         "writeScopeKind": "source repository focused QNT/guidance/route inventory only; no fresh target runtime files",
@@ -4884,12 +4893,16 @@
           "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
           "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP"
         ],
-        "parallelGroup": "next-implementation-batch-01"
+        "parallelGroup": "next-implementation-batch-01",
+        "baseSha": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-reaction-projection-facts",
+        "branch": "ralph/source-reaction-projection-facts",
+        "agent": "pending spawn"
       },
       {
         "laneId": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
         "kind": "fresh-replay",
-        "status": "ready",
+        "status": "running",
         "basePolicy": "Resolve from accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at launch; expected base ff09b6579ebb507f3c8dca06f2b040d0d46d05fb unless target has advanced.",
         "purpose": "Replay selected condition-saving rows through already packaged generic condition/save/repeat-save route facts and public reducer observations without authored identity dispatch.",
         "writeScopeKind": "fresh target focused evidence/example/verifier and minimal runtime support; aggregate state/verifier updates serialized after focused work",
@@ -4898,7 +4911,11 @@
           "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION",
           "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP"
         ],
-        "parallelGroup": "next-implementation-batch-01"
+        "parallelGroup": "next-implementation-batch-01",
+        "baseSha": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-condition-saving-selected",
+        "branch": "ralph/fresh-sqnt07a-condition-saving-selected",
+        "agent": "pending spawn"
       }
     ],
     "deferredLanes": [
@@ -4917,7 +4934,26 @@
     ],
     "integrationRule": "Launch the two ready lanes in separate worktrees. Do not edit aggregate fresh target state/verifier concurrently; the orchestrator serializes package refresh and aggregate gate updates after worker review."
   },
-  "activeParallelLanes": [],
+  "activeParallelLanes": [
+    {
+      "laneId": "SOURCE-REACTION-PROJECTION-FACTS",
+      "kind": "source-qnt",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-reaction-projection-facts",
+      "branch": "ralph/source-reaction-projection-facts",
+      "baseSha": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+      "status": "running",
+      "agent": "pending spawn"
+    },
+    {
+      "laneId": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
+      "kind": "fresh-replay",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-condition-saving-selected",
+      "branch": "ralph/fresh-sqnt07a-condition-saving-selected",
+      "baseSha": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
+      "status": "running",
+      "agent": "pending spawn"
+    }
+  ],
   "completionAuditReports": [
     {
       "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
