@@ -5,13 +5,14 @@ Campaign: `level-1-2-runtime-reducer-route`
 ## Latest Checkpoint
 
 - Source master merged the SQNT-07A Hex ability-check roll-mode, exact-damage route bridge, selected concentration-hazard route inputs, weapon-hosted capability facts, and concentration-hazard save-triggered Hit Point damage ownership at `4d196258a51f4264803ff11f7c806c969f0aff2d`.
-- Fresh target `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` is accepted at `b3de1456c54162357abed70608ec37cc936dee92`.
-- Fresh accepted in this checkpoint: `FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION`, after review required the verifier to pin the copied QNT import closure before accepting literal comparison records.
-- Current fresh verifier reports source package `53c516ee1c9fd3898c89a93cb8abe063218e4146`, `100` drivers, `667` in-scope obligations, and `61` out-of-scope obligations.
-- Final fresh checks passed: `python3 tools/verify_fresh_rr_sqnt07a_hex_exact_damage_source_consumption.py`, `python3 tools/verify_current_fresh_target.py`, `cargo test marked_damage_rider_projects_ability_check_roll_mode_until_concentration_cleanup`, `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check`.
+- Fresh target `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` is accepted at `ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44`.
+- Fresh accepted in this checkpoint: `FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION`, consuming source package `4d196258a51f4264803ff11f7c806c969f0aff2d`.
+- Current fresh verifier reports source package `4d196258a51f4264803ff11f7c806c969f0aff2d`, `100` drivers, `667` in-scope obligations, and `61` out-of-scope obligations.
+- Accepted fresh claims added or refreshed here: weapon-hosted selected route exactness plus generic item/attack capability facts, concentration-backed area hazard admission/cleanup plus save-triggered exact Hit Point damage, and Hex/exact-damage source consumption with no retained runtime blockers. Authored item/attack/spell identity remains outside production runtime dispatch.
+- Final fresh checks passed: `python3 tools/verify_fresh_rr_sqnt07a_level1_weapon_hosted_selected.py`, `python3 tools/verify_fresh_rr_sqnt07a_concentration_area_hazard.py`, `python3 tools/verify_fresh_rr_sqnt07a_hex_exact_damage_source_consumption.py`, `python3 tools/verify_current_fresh_target.py`, `cargo fmt --check`, `cargo test` (`95` tests), `cargo clippy --all-targets -- -D warnings`, and `git diff --check`.
 - Source blocker lanes completed and passed focused source verification: weapon-hosted capability lane `50d41e183e52a191ba3109079801c19b68d7adf1`, concentration-hazard save-damage lane `d40c5e7f30cbbc3103cfad841c6c0002a777165e`, merged into source master by `4d196258a51f4264803ff11f7c806c969f0aff2d`.
-- Active Ralph lane: `FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION` in `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-source-blocker-consumption`, launched from fresh target base `b3de1456c54162357abed70608ec37cc936dee92`, consuming source package `4d196258a51f4264803ff11f7c806c969f0aff2d`.
-- No fresh acceptance is claimed yet for source package `4d196258a51f4264803ff11f7c806c969f0aff2d`; review and merge remain pending.
+- Active Ralph lanes: none.
+- Next decision point: completion audit and next campaign selection from current fresh target evidence, not stale source-blocker bookkeeping.
 
 ## Bootstrap Snapshot
 
@@ -39,10 +40,13 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Current Fresh Verification
 
-At campaign-control head before this checkpoint update and fresh target head
-`b3de1456c54162357abed70608ec37cc936dee92`:
+At fresh target head `ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44`:
 
 - `python3 tools/verify_current_fresh_target.py`: pass
+- `python3 tools/verify_fresh_rr_sqnt07a_level1_weapon_hosted_selected.py`:
+  pass
+- `python3 tools/verify_fresh_rr_sqnt07a_concentration_area_hazard.py`:
+  pass
 - `python3 tools/verify_fresh_rr_sqnt07a_hex_exact_damage_source_consumption.py`:
   pass
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_after_hit_timed_selected.py`:
@@ -54,22 +58,21 @@ At campaign-control head before this checkpoint update and fresh target head
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_scalar_buff_selected.py`: pass
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_weapon_hosted_selected.py`:
   pass
-- `cargo test fresh_reaction_interrupt_taxonomy_routes_use_generic_payload_shapes --test reducer_spine`: pass
-- `cargo test sqnt07a_level1_ -- --nocapture`: pass
 - `cargo fmt --check`: pass
-- `cargo test`: pass
+- `cargo test`: pass, `95` tests
 - `cargo clippy --all-targets -- -D warnings`: pass
 - `git diff --check`: pass
-- current package: `53c516ee1c9fd3898c89a93cb8abe063218e4146`
+- current package: `4d196258a51f4264803ff11f7c806c969f0aff2d`
 - inventory: `100` drivers, `667` in-scope obligations, `61` out-of-scope
   obligations
 - current fresh runtime claims: FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A
   active-effect/condition, spatial/damage, character/sheet/handoff,
   reaction/interrupt taxonomy, battle active-effects, and level-1
   marked/immunity, scalar-buff, after-hit/timed rider selected-row replays, and
-  weapon-hosted generic route-surface replay, plus Hex ability-check roll-mode,
-  exact-damage route bridge consumption, and selected concentration-backed
-  hazard route facts from `FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION`
+  weapon-hosted selected route exactness plus generic item/attack capability
+  facts, Jump landing/prone, concentration-backed area hazard admission/cleanup
+  plus save-triggered exact Hit Point damage, and Hex/exact-damage source
+  consumption
 - active fresh expansion lanes: none
 
 This supersedes the older FEXP-09G and partial renewal checkpoints as the
@@ -101,9 +104,9 @@ refreshed source inventory also marks `45` obligations out of scope, including
 the nine scenario sequencing rows moved out of the reducer-route denominator.
 
 The current fresh package checkpoint is separate: the fresh verifier at
-`b3de1456c54162357abed70608ec37cc936dee92` reports `100` drivers, `667`
+`ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44` reports `100` drivers, `667`
 in-scope obligations, and `61` out-of-scope obligations for source package
-`53c516ee1c9fd3898c89a93cb8abe063218e4146`.
+`4d196258a51f4264803ff11f7c806c969f0aff2d`.
 
 Detailed source-refresh handoff: `tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md`.
 
